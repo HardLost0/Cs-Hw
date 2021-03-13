@@ -1,0 +1,95 @@
+// List of icons that can be used in the game
+var icons = ["icon://fa-hand-rock-o", "icon://fa-hand-paper-o", "icon://fa-hand-scissors-o"];
+
+// List of possible choices to play
+var choices = ["Rock", "Paper", "Scissors"];
+
+// User and computer scores, started at 0
+var playerScore = 0;
+var computerScore = 0;
+
+// Button for player to play rock
+onEvent("rockButton","click",function(){
+  updateScreen("Rock");
+});
+
+// Button for player to play paper
+onEvent("paperButton","click",function(){
+  updateScreen("Paper");
+});
+
+// Button for player to play scissors
+onEvent("scissorsButton","click",function(){
+  updateScreen("Scissors");
+});
+
+// When the user clicks any of the three buttons it runs a round
+// of rock paper scissors. This function determines who won the
+// game and updates the screen and scores for each player.
+function updateScreen(playerChoice){
+  
+  // Randomly choose the computer's choice and decide who wins
+  var computerChoice = randomChoose(choices);
+  var winner = decideWinner(playerChoice, computerChoice);
+
+  // Update the screen with the correct icon for each player
+  setProperty("playerOutput","image",findIcon(playerChoice));
+  setProperty("computerOutput","image",findIcon(computerChoice));
+
+  
+  // Update the screen with the text explaining who won.
+  if(winner == "Draw"){
+    setProperty("gameText","text","Draw!");
+  } else if (winner == "Player") {
+    setProperty("gameText","text","You win!");
+    playerScore++;
+    setProperty("playerScoreOutput","text",playerScore);
+  } else if (winner == "Computer") {
+    setProperty("gameText","text","Computer wins!");
+    computerScore++;
+    setProperty("computerScoreOutput","text",computerScore);    
+  }
+}
+
+// iconName {string} - either "Rock", "Paper", or "Scissors"
+// return {string} - the icon associated with the string provided
+function findIcon(iconName){
+  var iconPick = "";
+  if (iconName == "Rock") {
+    iconPick = icons[0];
+  } else if (iconName == "Paper") {
+    iconPick = icons[1];
+  } else if (iconName == "Scissors") {
+    iconPick = icons[2];
+  }
+  return iconPick;
+}
+
+// Randomly selects an item from the list provided and returns it
+// list {list} - a list of items
+// return {item} - a randomly chosen item from the list
+function randomChoose(list){
+  var randomItem = list[(randomNumber(0,list.length-1))];
+  return randomItem;
+}
+
+// Decides who wins a round of rock paper scissors by taking the two 
+// playerChoice {string} - either "Rock", "Paper", or "Scissors", the human player's choice
+// computerChoice {string} - either "Rock", "Paper", or "Scissors", the computer player's choice
+// return {string} - either "Draw", "Player", or "Computer", depending on who
+function decideWinner(playerChoice, computerChoice){
+  var winner;
+  if (playerChoice == computerChoice) {
+    winner = "Draw";
+  } else if ((playerChoice == "Rock" && computerChoice == "Scissors")) {
+    winner = "Player";
+  } else if ((playerChoice == "Paper" && computerChoice == "Rock")){
+    winner = "Player";
+  } else if ((playerChoice == "Scissors" && computerChoice == "Paper")){
+    winner = "Player";
+  } else {
+    winner = "Computer";
+  }
+  return winner;
+}
+
