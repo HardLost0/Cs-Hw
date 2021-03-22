@@ -1,34 +1,25 @@
-// This function Adds all number in addArrays //
-
-function addArrays() {
-  var listofNum = [1,2,3,4];
-  
-  if(listofNum.length > 0 ){
+// Adds all number in addArrays
+function addArrays(listOfNums) {
+  if(listOfNums.length > 0 ){
     var total = 0;
-    for(var i = 0; i <listofNum.length; i++) {
-      total += listofNum[i];
+    for(var i = 0; i <listOfNums.length; i++) {
+      total += listOfNums[i];
     }
     return total;
   }
   return 0;
 }
-console.log(addArrays());
+console.log(addArrays([1,2,3,4,5,6,7]));
 
-
-function evenNumbers() {
-  for(i = 1; i<=100; i++){
-// divides by 2 and if there's a remiander it's a odd
-  if(i % 2 == 0){
+// Subtract Numbers in subtractArray
+function subtractArrays(listOfNums) {
+  if(listOfNums.length > 0 ){
+    var total = 0;
+    for(var i = 0; i <listOfNums.length; i++) {
+      total -= listOfNums[i];
     }
+    return total;
   }
+  return 0;
 }
-
-
-function oddNumbers() {
-  for(i = 1; i<=100; i++){
-// divides by 2 and if there's a remiander it's a odd //
-  if(i % 2 == 1){
-    }
-  }
-}
-console.log(evenNumbers());
+console.log(subtractArrays([1,2,3,4,5,6,7]));
